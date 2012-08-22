@@ -1,0 +1,32 @@
+{
+  "name": "architect-browserify",
+  "description": "Browserify plugin for Architect",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": {
+    "name": "Nujii Labs",
+    "email": "developer@nujii.com"
+  },
+  "contributors": [ 
+    { "name": "Cameron Bytheway", "email": "cameron@nujii.com" }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nujii/architect-browserify.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "browserify": "~1.15.2",
+    "uglify-js": "~1.3.3",
+    "mkdirp": "~0.3.4",
+    "architect-express": "~0.0.1",
+    "architect-logger": "~0.0.1"
+  },
+  "plugin": {
+    "consumes": [
+      "logger",
+      "express"
+    ],
+    "provides": []
+  }
+}
