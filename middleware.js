@@ -60,7 +60,7 @@ module.exports = function(options){
           if (!isCoffee) {
             fs.exists(origPath, function(exists) {
               if (!exists) {
-                error(err);
+                next();
               }
               else {
                 commonCompile(origPath);
@@ -80,6 +80,7 @@ module.exports = function(options){
         mkdirp(dirname(jsPath), 0700, function(err){
           if (err) return error(err);
           fs.writeFile(jsPath, js, 'utf8', next);
+          imports[path] = js;
         });
       };
 
