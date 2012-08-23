@@ -1,5 +1,7 @@
 // Shamelessly copied from the stylus middleware
 
+var imports = {};
+
 module.exports = function(options){
   var browserify = require('browserify');
   var mkdirp = require('mkdirp');
@@ -7,7 +9,6 @@ module.exports = function(options){
   var dirname = require('path').dirname;
   var url = require('url');
   var fs = require('fs');
-  var imports = {};
   options = options || {};
 
   // Accept src/dest dir
@@ -80,7 +81,6 @@ module.exports = function(options){
         mkdirp(dirname(jsPath), 0700, function(err){
           if (err) return error(err);
           fs.writeFile(jsPath, js, 'utf8', next);
-          imports[path] = js;
         });
       };
 
@@ -107,13 +107,15 @@ module.exports = function(options){
               next(err);
             }
           } else {
+            console.log(stats);
             // Source has changed, compile it
             if (stats.mtime > jsStats.mtime) {
               compile();
+              imports[path]=[{path:path,mtime:stats.mtime}];
             // Already compiled, check imports
             } else {
               checkImports(path, function(changed){
-                changed.length ? compile() : next();
+                changed && changed.length ? compile() : next();
               });
             }
           }
